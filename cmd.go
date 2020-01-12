@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/GeertJohan/go.rice"
+	"github.com/gobuffalo/packr/v2"
 	"github.com/spf13/cobra"
 	"log"
 	"os"
@@ -10,7 +10,12 @@ import (
 )
 
 func configureShell() {
-	fmt.Println(rice.MustFindBox("fish").MustString("yam.fish"))
+	box := packr.New("shellBox", "./fish")
+	s, err := box.FindString("yam.fish")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(s)
 }
 
 func listKeys() {
